@@ -1,0 +1,98 @@
+<footer>
+  <div class="wrapper">
+    <div class="new_footer">
+    <div class="container">
+      <div class="row">
+        {% for block in section.blocks %}
+        {% if block.type == "menu" %}
+        <div class="col-md-3">
+           {% if block.settings.menu_title != blank %}
+          <h2 class="menu_title">{{ block.settings.menu_title }}</h2>
+          {% endif %}
+          <ul>
+          {% for link in linklists[block.settings.Footer_menu].links %}
+          <li class="footer-link">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+          {% endfor %}  
+          </ul>
+        </div>
+        {% endif %}
+        
+        {% if block.type == "text" %}
+        <div class="col-md-3">
+           {% if block.settings.menu_title_text != blank %}
+          <h2 class="menu_title">{{ block.settings.menu_title_text }}</h2>
+          {% endif %}
+          <div class="f_content_box">
+            {% if block.settings.f_content_box != blank %}
+            <p>{{ block.settings.f_content_box }}</p>
+            {% endif %}
+            {% if block.settings.mail != blank %}
+            <a href="mailto:{{ block.settings.mail }}">{{ block.settings.mail }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+    {% if section.settings.copyright_text != blank %}
+      <div class="copyright_text">
+         <p class="copyright">{{ section.settings.copyright_text }}</p>
+      </div>
+       {% endif %}
+  </div>
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+		    {
+          "type": "textarea",
+          "id": "copyright_text",
+          "label": "copyright text"
+        }
+],
+"blocks": [
+  {
+  "type": "menu",
+  "name": "Footer menu",
+  "settings": [
+		    {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "Footer_menu",
+          "label": "Menu"
+		    }  
+      ]
+    },
+	{
+    "type": "text",
+    "name": "Text",
+    "settings": [
+          {
+            "type": "text",
+            "id": "menu_title_text",
+            "label": "Heading"
+          },
+		      {
+            "type": "textarea",
+            "id": "f_content_box",
+            "label": "Text"
+          },
+		     {
+            "type": "text",
+            "id": "mail",
+            "label": "Email"
+          }
+        ]
+    }
+  ]
+  }
+{% endschema %}
